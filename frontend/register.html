@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register – SecHealthDB</title><script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="./css/styles.css"></head>
+<body class="bg-grid"><div class="min-h-screen grid place-items-center px-4"><div class="w-full max-w-md card p-8">
+<div class="flex items-center gap-2 mb-6"><img src="./img/shield-heart.svg" class="h-7 w-7"><h1 class="font-bold text-lg">SecHealthDB</h1></div>
+<h2 class="text-2xl font-extrabold">Create an account</h2>
+<form id="register-form" class="mt-6 space-y-4">
+<div><label class="label">Username</label><input type="text" name="username" class="input" required/></div>
+<div><label class="label">Password</label><input type="password" name="password" class="input" required/></div>
+<div><label class="label">Role</label><select name="role" class="input"><option value="H">Group H (full)</option><option value="R">Group R (restricted)</option></select></div>
+<button class="btn-primary w-full">Register</button></form>
+<div class="mt-4 text-sm">Already have an account? <a class="text-indigo-600 hover:underline" href="./login.html">Log in</a></div>
+</div></div><script>window.API_BASE=localStorage.getItem('API_BASE')||'http://localhost:5000';</script><script src="./js/app.js"></script></body></html>
