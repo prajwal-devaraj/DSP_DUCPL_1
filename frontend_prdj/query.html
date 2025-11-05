@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecHealthDB · Query</title>
+  <link rel="icon" href="assets/img/favicon.svg" />
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="bg-grid">
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/img/logo.svg" alt="SecHealthDB" class="logo"/>
+      <span>SecHealthDB</span>
+    </div>
+    <nav class="nav">
+      <a href="dashboard.html">Dashboard</a>
+      <a class="active" href="query.html">Query</a>
+      <a href="add.html" id="linkAdd">Add Record</a>
+      <button id="btnLogout" class="btn btn-ghost small">Log out</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Search</h2>
+      <form id="queryForm" class="form grid-3 gap">
+        <div class="field">
+          <label for="ageMin">Age ≥</label>
+          <input id="ageMin" name="ageMin" type="number" min="0" />
+        </div>
+        <div class="field">
+          <label for="ageMax">Age ≤</label>
+          <input id="ageMax" name="ageMax" type="number" min="0" />
+        </div>
+        <div class="field">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender">
+            <option value="">Any</option>
+            <option value="0">Female</option>
+            <option value="1">Male</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="weightMin">Weight ≥</label>
+          <input id="weightMin" name="weightMin" type="number" step="0.01"/>
+        </div>
+        <div class="field">
+          <label for="weightMax">Weight ≤</label>
+          <input id="weightMax" name="weightMax" type="number" step="0.01"/>
+        </div>
+        <div class="field">
+          <label for="heightMin">Height ≥</label>
+          <input id="heightMin" name="heightMin" type="number" step="0.01"/>
+        </div>
+        <div class="row-wrap full">
+          <button class="btn btn-primary">Run Query</button>
+          <a id="btnDemo" class="btn">Demo Data</a>
+        </div>
+      </form>
+    </section>
+
+    <section class="card m-top">
+      <h2>Results</h2>
+      <div id="results" class="table-wrap muted">Run a query to see results.</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 SecHealthDB</p>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/table.js"></script>
+  <script>
+    enforceAuth();
+    const { user } = getSession();
+    const addLink = document.getElementById('linkAdd');
+    if (user.group !== 'H') { addLink.classList.add('disabled'); }
+
+    document.getElementById('btnLogout').onclick = logout;
+    document.getElementById('queryForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const params = Object.fromEntries(new FormData(e.target).entries());
+      const data = await searchRecords(params, user.group);
+      renderTable(document.getElementById('results'), data, user.group);
+    };
+    document.getElementById('btnDemo').onclick = async () => {
+      const data = await getDemoData(user.group);
+      renderTable(document.getElementById('results'), data, user.group);
+    };
+  </script>
+</body>
+</html>

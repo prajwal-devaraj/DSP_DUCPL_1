@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecHealthDB · Dashboard</title>
+  <link rel="icon" href="assets/img/favicon.svg" />
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="bg-dots">
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/img/logo.svg" alt="SecHealthDB" class="logo"/>
+      <span>SecHealthDB</span>
+    </div>
+    <nav class="nav">
+      <a class="active" href="dashboard.html">Dashboard</a>
+      <a href="query.html">Query</a>
+      <a href="add.html" id="linkAdd">Add Record</a>
+      <button id="btnLogout" class="btn btn-ghost small">Log out</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="grid-2 gap">
+      <div class="card">
+        <h2>Overview</h2>
+        <p class="muted">Use this panel to query the healthcare table. Your access is enforced client-side for demo and must be enforced server-side in production.</p>
+        <ul class="bullets">
+          <li>Group H: Full access + can add data</li>
+          <li>Group R: No First/Last name, read-only</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Session</h2>
+        <div id="sessionInfo" class="mono"></div>
+      </div>
+    </section>
+
+    <section class="card m-top">
+      <h2>Quick Actions</h2>
+      <div class="row-wrap">
+        <a class="btn" href="query.html">Open Query</a>
+        <a class="btn" id="quickDemo">Load Demo Data</a>
+        <a class="btn" href="add.html" id="btnAdd">Add Record</a>
+      </div>
+      <div id="quickTable" class="table-wrap m-top hide"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 SecHealthDB</p>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/table.js"></script>
+  <script>
+    enforceAuth();
+    const { user } = getSession();
+    document.getElementById('sessionInfo').textContent = JSON.stringify(user, null, 2);
+    document.getElementById('btnLogout').onclick = logout;
+    const addLink = document.getElementById('linkAdd');
+    const btnAdd = document.getElementById('btnAdd');
+    if (user.group !== 'H') { addLink.classList.add('disabled'); btnAdd.classList.add('disabled'); }
+    document.getElementById('quickDemo').onclick = async () => {
+      const data = await getDemoData(user.group);
+      renderTable(document.getElementById('quickTable'), data, user.group);
+      document.getElementById('quickTable').classList.remove('hide');
+    };
+  </script>
+</body>
+</html>

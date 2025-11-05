@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecHealthDB · Sign In</title>
+  <link rel="icon" href="assets/img/favicon.svg" />
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="bg-grid">
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/img/logo.svg" alt="SecHealthDB" class="logo"/>
+      <span>SecHealthDB</span>
+    </div>
+    <nav class="nav">
+      <a href="index.html" class="active">Sign In</a>
+      <a href="register.html">Register</a>
+      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="auth-container">
+    <section class="card card-auth">
+      <h1>Welcome back</h1>
+      <p class="muted">Sign in to query the secure healthcare database.</p>
+
+      <form id="loginForm" class="form">
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" placeholder="e.g. alice" required/>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="••••••••" required/>
+        </div>
+        <div class="row-between">
+          <label class="checkbox"><input type="checkbox" id="remember"/> Remember me</label>
+          <a class="link" href="#" onclick="alert('Ask your admin to reset your password.'); return false;">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary full">Sign In</button>
+        <button type="button" id="mockLogin" class="btn btn-ghost full">Try Demo (Mock)</button>
+      </form>
+
+      <p class="muted center m-top">No account? <a class="link" href="register.html">Create one</a></p>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 SecHealthDB · A demo frontend for a secure DBaaS course project.</p>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

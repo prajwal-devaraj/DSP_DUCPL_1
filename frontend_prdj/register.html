@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SecHealthDB · Register</title>
+  <link rel="icon" href="assets/img/favicon.svg" />
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="bg-grid">
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/img/logo.svg" alt="SecHealthDB" class="logo"/>
+      <span>SecHealthDB</span>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Sign In</a>
+      <a href="register.html" class="active">Register</a>
+    </nav>
+  </header>
+
+  <main class="auth-container">
+    <section class="card card-auth">
+      <h1>Create account</h1>
+      <p class="muted">Register and choose your group to control access.</p>
+
+      <form id="registerForm" class="form">
+        <div class="grid-2">
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" required/>
+          </div>
+          <div class="field">
+            <label for="group">Group</label>
+            <select id="group" name="group" required>
+              <option value="H">H · Full access</option>
+              <option value="R">R · Restricted</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" required/>
+        </div>
+        <div class="field">
+          <label for="confirm">Confirm Password</label>
+          <input id="confirm" name="confirm" type="password" required/>
+        </div>
+        <button type="submit" class="btn btn-primary full">Create Account</button>
+      </form>
+
+      <p class="muted center m-top">Already have an account? <a class="link" href="index.html">Sign in</a></p>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 SecHealthDB</p>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
